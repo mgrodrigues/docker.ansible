@@ -1,0 +1,31 @@
+---
+
+- name: Add Docker repository key
+  shell: "curl -sSL {{ apt_key_url }} | sudo apt-key add -"
+
+- name: Add Docker repository and update apt cache (Recent versions)
+  apt_repository:
+    repo: "{{ apt_repository }}"
+    mode: '644'
+    update_cache: yes
+    state: present
+  
+- name: Uninstall old versions of Docker
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-ce
+    - docker-engine
+    - docker.io
+    - docker-common
+    - docker-selinux
+
+- name: "Install docker package: {{ docker_package }}"
+  apt:
+    name: "{{ docker_package }}"
+    state: present
+    update_cache: yes
+
+

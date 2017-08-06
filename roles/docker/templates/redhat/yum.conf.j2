@@ -1,0 +1,17 @@
+[main]
+cachedir=/var/cache/yum/$basearch/$releasever
+keepcache=0
+debuglevel=2
+logfile=/var/log/yum.log
+exactarch=1
+{% if allow_legacy_versions %}
+obsoletes=1
+{% else %}
+obsoletes=0
+{% endif %}
+gpgcheck=1
+plugins=1
+installonly_limit=3
+
+# PUT YOUR REPOS HERE OR IN separate files named file.repo
+# in /etc/yum.repos.d

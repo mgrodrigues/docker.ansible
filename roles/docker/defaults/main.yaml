@@ -1,0 +1,32 @@
+---
+
+######## YUM #################
+# current docker repository url for redhat family distributions
+yum_recent_repository_source_url: "https://download.docker.com/linux/centos/docker-ce.repo"
+
+# legacy repository
+yum_legacy_repository_url: "https://yum.dockerproject.org/repo/main/centos/7"
+yum_legacy_repository_gpg: "https://yum.dockerproject.org/gpg"
+###############################
+
+######## APT ##################
+# ce to get apt repository key
+apt_key_url: "https://download.docker.com/linux/ubuntu/gpg"
+# apt repository key signature
+
+# Name of the apt repository for Docker CE
+apt_repository: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id|lower }} {{ ansible_lsb.codename|lower }} stable"
+################################
+
+# for redhat family docker-ce-version
+# for debian family docker-ce=version
+docker_package: docker-ce
+
+# if true then legacy repositories can be added
+allow_legacy_versions: true
+
+# use http proxy with docker
+enable_docker_proxy: false
+
+
+

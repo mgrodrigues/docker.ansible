@@ -1,0 +1,8 @@
+- name: Add Docker repository (LEGACY versions)
+  yum_repository:
+          name: docker-legacy
+          description: "Docker repository for legacy version < 1.12"
+          baseurl: "{{ yum_legacy_repository_url }}"
+          gpgkey: "{{ yum_legacy_repository_gpg }} " 
+          gpgcheck: yes
+          enabled: yes

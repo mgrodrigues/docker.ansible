@@ -1,0 +1,8 @@
+---
+- name: Copy yum.conf with modified options
+  template: 
+        src: "{{ ansible_os_family|lower }}/yum.conf.j2"
+        dest: /etc/yum.conf
+        owner: root
+        group: root
+        mode: "u=rw"

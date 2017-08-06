@@ -1,0 +1,33 @@
+---
+
+# if allow_legacy_versions is set to true then we'll need to add obsoletes=1 to yum.conf
+- include: "yum_config.yaml"
+  when: allow_legacy_versions
+
+- name: Add Docker repository (Recent versions)
+  command: "yum-config-manager --add-repo {{ yum_recent_repository_source_url }}"
+
+# if we want to install legacy version we'll add the legacy repo if allow_legacy_versions is set to true
+- include: "add_legacy_repo.yaml"
+  when: allow_legacy_versions
+
+- name: makecache fast
+  command: yum makecache fast
+
+- name: Uninstall old versions of Docker
+  yum: 
+        name: "{{ item }}"
+        state: absent
+  with_items: 
+        - docker
+        - docker-ce
+        - docker-engine
+        - docker.io
+        - docker-common
+        - docker-selinux
+  
+- name: "Install docker package: {{ docker_package }}"
+  yum:
+    name: "{{ docker_package }}"
+    state: present
+    update_cache: true
